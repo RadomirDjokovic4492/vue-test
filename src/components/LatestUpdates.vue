@@ -7,6 +7,7 @@ enum ECategory {
 interface ICategory {
   value: string
   title: string
+  checked: boolean
 }
 
 interface Article {
@@ -55,7 +56,7 @@ window.LATEST_ARTICLES = [
   },
 ]
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 const data = ref<{
   latestUpdates: Article[]
@@ -69,13 +70,21 @@ onMounted(() => {
       {
         value: ECategory.NEWS,
         title: 'News',
+        checked: true,
       },
       {
         value: ECategory.ESSAY,
         title: 'Essay',
+        checked: true,
       },
     ],
   }
+})
+
+const visibleArticles = computed(() => {
+  return (data.value?.latestUpdates ?? []).filter(
+    (article) => (data.value?.categories ?? []).find((c) => c.value === article.category)?.checked,
+  )
 })
 </script>
 
@@ -83,19 +92,14 @@ onMounted(() => {
   <div class="latest-updates">
     <h2>Latest Updates</h2>
     <div class="filter-box">
-      <div>
-        <input id="news" type="checkbox" />
-        <label for="news">News</label>
-      </div>
-
-      <div>
-        <input id="essays" type="checkbox" />
-        <label for="essays">Essays</label>
+      <div v-for="category in data?.categories">
+        <input :id="category.value" type="checkbox" v-model="category.checked" />
+        <label :for="category.value">{{ category.title }}</label>
       </div>
     </div>
     <div class="article-box">
-      <ul v-if="data?.latestUpdates.length">
-        <li v-for="article in data?.latestUpdates" :key="article.url">
+      <ul v-if="visibleArticles.length">
+        <li v-for="article in visibleArticles" :key="article.url">
           {{ article.title }} - {{ article.publishDate }}
         </li>
       </ul>
