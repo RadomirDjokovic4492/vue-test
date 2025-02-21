@@ -89,6 +89,11 @@ const visibleArticles = computed(() => {
     )
     .filter((_, i) => i < 5)
 })
+
+const formatDate = (date: string) => {
+  const options: Intl.DateTimeFormatOptions = { month: 'long', year: 'numeric' }
+  return new Intl.DateTimeFormat('en-US', options).format(new Date(date))
+}
 </script>
 
 <template>
@@ -103,7 +108,7 @@ const visibleArticles = computed(() => {
     <div class="article-box">
       <ul v-if="visibleArticles.length">
         <li v-for="article in visibleArticles" :key="article.url">
-          {{ article.title }} - {{ article.publishDate }}
+          {{ article.title }} - {{ formatDate(article.publishDate) }}
         </li>
       </ul>
     </div>
