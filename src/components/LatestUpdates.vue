@@ -108,7 +108,11 @@ const formatDate = (date: string) => {
     <div class="article-box">
       <ul v-if="visibleArticles.length">
         <li v-for="article in visibleArticles" :key="article.url">
-          {{ article.title }} - {{ formatDate(article.publishDate) }}
+          <div class="list-item">
+            <div class="list-item-title">{{ article.title }}</div>
+            <span class="list-item-hyphen"> - </span>
+            <div class="list-item-date">{{ formatDate(article.publishDate) }}</div>
+          </div>
         </li>
       </ul>
     </div>
@@ -127,5 +131,21 @@ const formatDate = (date: string) => {
 }
 input + label {
   margin-left: 0.25rem;
+}
+.list-item {
+  display: flex;
+  justify-content: space-between;
+}
+.list-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.list-item-hyphen {
+  min-width: 1rem;
+  text-align: center;
+}
+.list-item-date {
+  white-space: nowrap;
 }
 </style>
