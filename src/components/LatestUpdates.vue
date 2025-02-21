@@ -114,6 +114,7 @@ const visibleArticles = computed(() => {
 .latest-updates {
   width: 100%;
   max-width: 500px;
+  border: 1px solid;
 }
 .filter-box {
   display: flex;
