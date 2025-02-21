@@ -74,7 +74,7 @@ onMounted(() => {
       },
       {
         value: ECategory.ESSAY,
-        title: 'Essay',
+        title: 'Essays',
         checked: true,
       },
     ],
@@ -91,7 +91,7 @@ const visibleArticles = computed(() => {
 })
 
 const formatDate = (date: string) => {
-  const options: Intl.DateTimeFormatOptions = { month: 'long', year: 'numeric' }
+  const options: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric' }
   return new Intl.DateTimeFormat('en-US', options).format(new Date(date))
 }
 </script>
