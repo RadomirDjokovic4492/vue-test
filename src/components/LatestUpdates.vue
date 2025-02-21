@@ -82,9 +82,12 @@ onMounted(() => {
 })
 
 const visibleArticles = computed(() => {
-  return (data.value?.latestUpdates ?? []).filter(
-    (article) => (data.value?.categories ?? []).find((c) => c.value === article.category)?.checked,
-  )
+  return (data.value?.latestUpdates ?? [])
+    .filter(
+      (article) =>
+        (data.value?.categories ?? []).find((c) => c.value === article.category)?.checked,
+    )
+    .filter((_, i) => i < 5)
 })
 </script>
 
