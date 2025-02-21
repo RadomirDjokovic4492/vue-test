@@ -109,7 +109,11 @@ const formatDate = (date: string) => {
       <ul v-if="visibleArticles.length">
         <li v-for="article in visibleArticles" :key="article.url">
           <div class="list-item">
-            <div class="list-item-title">{{ article.title }}</div>
+            <div class="list-item-title">
+              <a :href="article.url">
+                {{ article.title }}
+              </a>
+            </div>
             <span class="list-item-hyphen"> - </span>
             <div class="list-item-date">{{ formatDate(article.publishDate) }}</div>
           </div>
