@@ -81,11 +81,16 @@ onMounted(() => {
   }
 })
 
+const sevenDaysAsMillisecond = 7 * 24 * 60 * 60 * 1000
 const visibleArticles = computed(() => {
   return (data.value?.latestUpdates ?? [])
     .filter(
       (article) =>
         (data.value?.categories ?? []).find((c) => c.value === article.category)?.checked,
+    )
+    .filter(
+      (article) =>
+        new Date().getTime() - new Date(article.publishDate).getTime() < sevenDaysAsMillisecond,
     )
     .sort((a, b) => (a.publishDate > b.publishDate ? 1 : -1))
     .filter((_, i) => i < 5)
