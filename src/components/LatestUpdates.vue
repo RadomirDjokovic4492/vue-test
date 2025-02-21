@@ -87,6 +87,7 @@ const visibleArticles = computed(() => {
       (article) =>
         (data.value?.categories ?? []).find((c) => c.value === article.category)?.checked,
     )
+    .sort((a, b) => (a.publishDate > b.publishDate ? 1 : -1))
     .filter((_, i) => i < 5)
 })
 
